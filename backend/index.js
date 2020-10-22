@@ -2,6 +2,7 @@ const express = require("express");
 const enableCORS = require("./enableCORS");
 const connectDB = require("./models/connectDB");
 const Questions = require("./models/QuestionsDB");
+const path = require("path");
 
 const app = express();
 
@@ -59,12 +60,20 @@ app.post("/api/post-Qustion", (req, res) => {
   res.json({ msg: "we receive your data" });
 });
 
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
 const server = () => {
   app.listen(PORT, () => {
     console.log(`Listening to port ${PORT}!`);
   });
 };
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("../build"));
+
+  app.get("*", (req, res) => {
+    res.sendFile(__dername, "bulid", "index.html"); //(__dirname, 'client', bulif, index.html));
+  });
+}
 
 connectDB(server);
