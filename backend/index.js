@@ -8,6 +8,7 @@ const app = express();
 
 app.use(enableCORS);
 app.use(express.json());
+app.use(favinon(__dirname + "/../public/favicon.ico"));
 
 app.get("/api/questions", (req, res) => {
   Questions.find({}, function (err, doc) {
@@ -64,7 +65,7 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("../build"));
 
   app.get("*", (req, res) => {
-    res.sendFile(path.join(__dername, "../bulid", "index.html"));
+    res.sendFile(path.resolve(__dername, "./../bulid", "index.html"));
   });
 }
 
