@@ -60,6 +60,14 @@ app.post("/api/post-Qustion", (req, res) => {
   res.json({ msg: "we receive your data" });
 });
 
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("../build"));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dername, "../bulid", "index.html"));
+  });
+}
+
 const PORT = process.env.PORT || 5000;
 
 const server = () => {
@@ -67,13 +75,5 @@ const server = () => {
     console.log(`Listening to port ${PORT}!`);
   });
 };
-
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static("../build"));
-
-  app.get("*", (req, res) => {
-    res.sendFile(__dername, "bulid", "index.html"); //(__dirname, 'client', bulif, index.html));
-  });
-}
 
 connectDB(server);
