@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node index",
     "dev": "nodemon index",
-    "heroku-postbulid": "npm install && npm run bulid"
+    "heroku-postbuild": "npm install && npm run bulid"
   },
   "author": "Naji",
   "license": "ISC",
